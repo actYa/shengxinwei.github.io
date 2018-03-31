@@ -33,12 +33,12 @@
 前提双方都必须知道密钥，但是密钥又无法通过网络发送。（因为网络发送可能被截取密钥，这样造成所发送的密文">
 <meta property="og:image" content="http://yoursite.com/2018/03/31/一个https的故事/pic1.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/03/31/一个https的故事/pic2.jpg">
-<meta property="og:image" content="http://yoursite.com/一个https的故事/pic3.jpg">
-<meta property="og:image" content="http://yoursite.com/一个https的故事/pic4.jpg">
-<meta property="og:image" content="http://yoursite.com/一个https的故事/pic5.jpg">
-<meta property="og:image" content="http://yoursite.com/一个https的故事/pic6.jpg">
-<meta property="og:image" content="http://yoursite.com/一个https的故事/pic7.jpg">
-<meta property="og:updated_time" content="2018-03-31T09:04:03.806Z">
+<meta property="og:image" content="http://yoursite.com/2018/03/31/一个https的故事/pic3.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/31/一个https的故事/pic4.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/31/一个https的故事/pic5.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/31/一个https的故事/pic6.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/31/一个https的故事/pic7.jpg">
+<meta property="og:updated_time" content="2018-03-31T09:19:39.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一个https的故事">
 <meta name="twitter:description" content="读：一个故事讲完https
@@ -246,15 +246,15 @@
 <p>##非对称加密<br>双方协议一个保密的密钥。<br>一个保密的，称为私钥。（自己持有）<br>另一个公开的，称为公钥<br>(用私钥加密的数据，只有对应的公钥才能解密，反之，用公钥加密的数据，只有对应的私钥才能解密)。 </p>
 <p>通信方式: 双方获取对方的公钥，然后通过对方公钥进行加密后，将消息发送给对方，等到消息被对方接收，对方通过自己的私钥进行解密（私钥是保密个人持有）。 </p>
 <p>非对称加密效率：很慢，相比较对称加密速度慢上百倍。<br>解决方案：其中一方生成对称加密算法的密钥，通过RSA的方式发送给另一方。收到对称密钥之后，不在使用RSA进行通信，利用对称加密算法来通信。 </p>
-<p>安全问题:并不安全。<br>当通信中间，有人”中间人”截取A方的公钥，然后冒充A，将自己的公钥发送给B。B使用了“中间人”的公钥进行加密，导致“中间人”可以通过自己的私钥查看消息，然后获取A的公钥，通过A的公钥将消息重新加密发送给A，这样A与B的通信都被“中间人”获取。<br><img src="/2018/03/31/一个https的故事/pic2.jpg" alt="pic"></p>
-<p>初步解决方案：网络世界具有公信力的认证中心，中心可以颁发一个证书，用于证明一个人的身份。（但公证书的传递也可能向上述情况被窃取）<br>—&gt; 数字签名<br>解释：一方把自己的公钥和个人信息用一个hash算法生成一个消息摘要，（Hash算法有个极好的特性，只要输入数据有一点点变化，那么生成的消息摘要就会有巨变，这样可以防止别人修改原始内容）。<br><img src="一个https的故事/pic3.jpg" alt="pic"></p>
-<p>这里“中间人”可能把整个原始信息都替换了。生成一个新的摘要内容，让你无法辨别。<br>所以接下来，要再通过有公信力的认证中心（简称CA）,用它的私钥对消息摘要形成签名。<br><img src="一个https的故事/pic4.jpg" alt="pic"></p>
-<p>并且，还把原始信息和数据签名合并，形成一个全新的东西叫做“数字证书”<br><img src="一个https的故事/pic5.jpg" alt="pic"></p>
+<p>安全问题:并不安全。<br>当通信中间，有人”中间人”截取A方的公钥，然后冒充A，将自己的公钥发送给B。B使用了“中间人”的公钥进行加密，导致“中间人”可以通过自己的私钥查看消息，然后获取A的公钥，通过A的公钥将消息重新加密发送给A，这样A与B的通信都被“中间人”获取。<br><img src="/2018/03/31/一个https的故事/pic2.jpg" alt="图一"></p>
+<p>初步解决方案：网络世界具有公信力的认证中心，中心可以颁发一个证书，用于证明一个人的身份。（但公证书的传递也可能向上述情况被窃取）<br>—&gt; 数字签名<br>解释：一方把自己的公钥和个人信息用一个hash算法生成一个消息摘要，（Hash算法有个极好的特性，只要输入数据有一点点变化，那么生成的消息摘要就会有巨变，这样可以防止别人修改原始内容）。<br><img src="/2018/03/31/一个https的故事/pic3.jpg" alt="图二"></p>
+<p>这里“中间人”可能把整个原始信息都替换了。生成一个新的摘要内容，让你无法辨别。<br>所以接下来，要再通过有公信力的认证中心（简称CA）,用它的私钥对消息摘要形成签名。<br><img src="/2018/03/31/一个https的故事/pic4.jpg" alt="pic"></p>
+<p>并且，还把原始信息和数据签名合并，形成一个全新的东西叫做“数字证书”<br><img src="/2018/03/31/一个https的故事/pic5.jpg" alt="pic"></p>
 <p>当B方将它的证书发送A方的时候，A方就用相同的Hash算法，再次生成消息摘要，然后用CA的公钥对数字签名解密，得到CA创建的消息摘要，两者相对比。就可以清楚的知道有没人篡改了。<br>当对比的消息摘要并未被人篡改，就可以安全拿到对方的公钥。后续的加密工作就可以开始了，就可以回到最初的解决方法了。 </p>
 <p>##CA证书的安全性：<br>（公众号码农翻身注：这些ＣＡ本身也有证书来证明自己的身份，并且ＣＡ的信用是像树一样分级的，高层的ＣＡ给底层的ＣＡ做信用背书，而操作系统／浏览器中会内置一些顶层的ＣＡ的证书，相当于你自动信任了他们。　这些顶层的ＣＡ证书一定得安全地放入操作系统／浏览器当中，否则世界大乱。） </p>
 <p>来自原文<br> https<br>终于可以介绍https了，前面已经介绍了https的原理， 你把张大胖替换成浏览器， 把Bill 替换成某个网站就行了。 </p>
 <p>一个简化的（例如下图没有包含Pre-Master Secret）https流程图是这样的， 如果你理解了前面的原理，这张图就变得非常简单： </p>
-<p><img src="一个https的故事/pic6.jpg" alt="pic"><br><img src="一个https的故事/pic7.jpg" alt="pic"></p>
+<p><img src="/2018/03/31/一个https的故事/pic6.jpg" alt="pic"><br><img src="/2018/03/31/一个https的故事/pic7.jpg" alt="pic"></p>
 
     
   </div>
